@@ -1,0 +1,474 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    VECTOR
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> program statement
+Rule 2     program -> statement
+Rule 3     statement -> VECTOR_ID EQUALS expression
+Rule 4     expression -> LBRACKET vector_values RBRACKET
+Rule 5     vector_values -> NUMBER
+Rule 6     vector_values -> NUMBER COMMA vector_values
+Rule 7     statement -> MATRIX_ID EQUALS expression
+Rule 8     expression -> MATRIX
+Rule 9     expression -> LBRACKET matrix_rows RBRACKET
+Rule 10    matrix_rows -> row
+Rule 11    matrix_rows -> row COMMA matrix_rows
+Rule 12    row -> LBRACKET row_values RBRACKET
+Rule 13    row_values -> NUMBER
+Rule 14    row_values -> NUMBER COMMA row_values
+Rule 15    expression -> IDENTIFIER
+Rule 16    expression -> expression PLUS expression
+Rule 17    expression -> expression MULTIPLY expression
+Rule 18    statement -> PRINT LPAREN IDENTIFIER RPAREN
+
+Terminals, with rules where they appear
+
+COMMA                : 6 11 14
+EQUALS               : 3 7
+IDENTIFIER           : 15 18
+LBRACKET             : 4 9 12
+LPAREN               : 18
+MATRIX               : 8
+MATRIX_ID            : 7
+MULTIPLY             : 17
+NUMBER               : 5 6 13 14
+PLUS                 : 16
+PRINT                : 18
+RBRACKET             : 4 9 12
+RPAREN               : 18
+VECTOR               : 
+VECTOR_ID            : 3
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 3 7 16 16 17 17
+matrix_rows          : 9 11
+program              : 1 0
+row                  : 10 11
+row_values           : 12 14
+statement            : 1 2
+vector_values        : 4 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . program statement
+    (2) program -> . statement
+    (3) statement -> . VECTOR_ID EQUALS expression
+    (7) statement -> . MATRIX_ID EQUALS expression
+    (18) statement -> . PRINT LPAREN IDENTIFIER RPAREN
+
+    VECTOR_ID       shift and go to state 3
+    MATRIX_ID       shift and go to state 4
+    PRINT           shift and go to state 5
+
+    program                        shift and go to state 1
+    statement                      shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+    (1) program -> program . statement
+    (3) statement -> . VECTOR_ID EQUALS expression
+    (7) statement -> . MATRIX_ID EQUALS expression
+    (18) statement -> . PRINT LPAREN IDENTIFIER RPAREN
+
+    VECTOR_ID       shift and go to state 3
+    MATRIX_ID       shift and go to state 4
+    PRINT           shift and go to state 5
+
+    statement                      shift and go to state 6
+
+state 2
+
+    (2) program -> statement .
+
+    VECTOR_ID       reduce using rule 2 (program -> statement .)
+    MATRIX_ID       reduce using rule 2 (program -> statement .)
+    PRINT           reduce using rule 2 (program -> statement .)
+    $end            reduce using rule 2 (program -> statement .)
+
+
+state 3
+
+    (3) statement -> VECTOR_ID . EQUALS expression
+
+    EQUALS          shift and go to state 7
+
+
+state 4
+
+    (7) statement -> MATRIX_ID . EQUALS expression
+
+    EQUALS          shift and go to state 8
+
+
+state 5
+
+    (18) statement -> PRINT . LPAREN IDENTIFIER RPAREN
+
+    LPAREN          shift and go to state 9
+
+
+state 6
+
+    (1) program -> program statement .
+
+    VECTOR_ID       reduce using rule 1 (program -> program statement .)
+    MATRIX_ID       reduce using rule 1 (program -> program statement .)
+    PRINT           reduce using rule 1 (program -> program statement .)
+    $end            reduce using rule 1 (program -> program statement .)
+
+
+state 7
+
+    (3) statement -> VECTOR_ID EQUALS . expression
+    (4) expression -> . LBRACKET vector_values RBRACKET
+    (8) expression -> . MATRIX
+    (9) expression -> . LBRACKET matrix_rows RBRACKET
+    (15) expression -> . IDENTIFIER
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MULTIPLY expression
+
+    LBRACKET        shift and go to state 11
+    MATRIX          shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+
+    expression                     shift and go to state 10
+
+state 8
+
+    (7) statement -> MATRIX_ID EQUALS . expression
+    (4) expression -> . LBRACKET vector_values RBRACKET
+    (8) expression -> . MATRIX
+    (9) expression -> . LBRACKET matrix_rows RBRACKET
+    (15) expression -> . IDENTIFIER
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MULTIPLY expression
+
+    LBRACKET        shift and go to state 11
+    MATRIX          shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+
+    expression                     shift and go to state 14
+
+state 9
+
+    (18) statement -> PRINT LPAREN . IDENTIFIER RPAREN
+
+    IDENTIFIER      shift and go to state 15
+
+
+state 10
+
+    (3) statement -> VECTOR_ID EQUALS expression .
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MULTIPLY expression
+
+    VECTOR_ID       reduce using rule 3 (statement -> VECTOR_ID EQUALS expression .)
+    MATRIX_ID       reduce using rule 3 (statement -> VECTOR_ID EQUALS expression .)
+    PRINT           reduce using rule 3 (statement -> VECTOR_ID EQUALS expression .)
+    $end            reduce using rule 3 (statement -> VECTOR_ID EQUALS expression .)
+    PLUS            shift and go to state 16
+    MULTIPLY        shift and go to state 17
+
+
+state 11
+
+    (4) expression -> LBRACKET . vector_values RBRACKET
+    (9) expression -> LBRACKET . matrix_rows RBRACKET
+    (5) vector_values -> . NUMBER
+    (6) vector_values -> . NUMBER COMMA vector_values
+    (10) matrix_rows -> . row
+    (11) matrix_rows -> . row COMMA matrix_rows
+    (12) row -> . LBRACKET row_values RBRACKET
+
+    NUMBER          shift and go to state 21
+    LBRACKET        shift and go to state 18
+
+    vector_values                  shift and go to state 19
+    matrix_rows                    shift and go to state 20
+    row                            shift and go to state 22
+
+state 12
+
+    (8) expression -> MATRIX .
+
+    PLUS            reduce using rule 8 (expression -> MATRIX .)
+    MULTIPLY        reduce using rule 8 (expression -> MATRIX .)
+    VECTOR_ID       reduce using rule 8 (expression -> MATRIX .)
+    MATRIX_ID       reduce using rule 8 (expression -> MATRIX .)
+    PRINT           reduce using rule 8 (expression -> MATRIX .)
+    $end            reduce using rule 8 (expression -> MATRIX .)
+
+
+state 13
+
+    (15) expression -> IDENTIFIER .
+
+    PLUS            reduce using rule 15 (expression -> IDENTIFIER .)
+    MULTIPLY        reduce using rule 15 (expression -> IDENTIFIER .)
+    VECTOR_ID       reduce using rule 15 (expression -> IDENTIFIER .)
+    MATRIX_ID       reduce using rule 15 (expression -> IDENTIFIER .)
+    PRINT           reduce using rule 15 (expression -> IDENTIFIER .)
+    $end            reduce using rule 15 (expression -> IDENTIFIER .)
+
+
+state 14
+
+    (7) statement -> MATRIX_ID EQUALS expression .
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MULTIPLY expression
+
+    VECTOR_ID       reduce using rule 7 (statement -> MATRIX_ID EQUALS expression .)
+    MATRIX_ID       reduce using rule 7 (statement -> MATRIX_ID EQUALS expression .)
+    PRINT           reduce using rule 7 (statement -> MATRIX_ID EQUALS expression .)
+    $end            reduce using rule 7 (statement -> MATRIX_ID EQUALS expression .)
+    PLUS            shift and go to state 16
+    MULTIPLY        shift and go to state 17
+
+
+state 15
+
+    (18) statement -> PRINT LPAREN IDENTIFIER . RPAREN
+
+    RPAREN          shift and go to state 23
+
+
+state 16
+
+    (16) expression -> expression PLUS . expression
+    (4) expression -> . LBRACKET vector_values RBRACKET
+    (8) expression -> . MATRIX
+    (9) expression -> . LBRACKET matrix_rows RBRACKET
+    (15) expression -> . IDENTIFIER
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MULTIPLY expression
+
+    LBRACKET        shift and go to state 11
+    MATRIX          shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+
+    expression                     shift and go to state 24
+
+state 17
+
+    (17) expression -> expression MULTIPLY . expression
+    (4) expression -> . LBRACKET vector_values RBRACKET
+    (8) expression -> . MATRIX
+    (9) expression -> . LBRACKET matrix_rows RBRACKET
+    (15) expression -> . IDENTIFIER
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MULTIPLY expression
+
+    LBRACKET        shift and go to state 11
+    MATRIX          shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+
+    expression                     shift and go to state 25
+
+state 18
+
+    (12) row -> LBRACKET . row_values RBRACKET
+    (13) row_values -> . NUMBER
+    (14) row_values -> . NUMBER COMMA row_values
+
+    NUMBER          shift and go to state 27
+
+    row_values                     shift and go to state 26
+
+state 19
+
+    (4) expression -> LBRACKET vector_values . RBRACKET
+
+    RBRACKET        shift and go to state 28
+
+
+state 20
+
+    (9) expression -> LBRACKET matrix_rows . RBRACKET
+
+    RBRACKET        shift and go to state 29
+
+
+state 21
+
+    (5) vector_values -> NUMBER .
+    (6) vector_values -> NUMBER . COMMA vector_values
+
+    RBRACKET        reduce using rule 5 (vector_values -> NUMBER .)
+    COMMA           shift and go to state 30
+
+
+state 22
+
+    (10) matrix_rows -> row .
+    (11) matrix_rows -> row . COMMA matrix_rows
+
+    RBRACKET        reduce using rule 10 (matrix_rows -> row .)
+    COMMA           shift and go to state 31
+
+
+state 23
+
+    (18) statement -> PRINT LPAREN IDENTIFIER RPAREN .
+
+    VECTOR_ID       reduce using rule 18 (statement -> PRINT LPAREN IDENTIFIER RPAREN .)
+    MATRIX_ID       reduce using rule 18 (statement -> PRINT LPAREN IDENTIFIER RPAREN .)
+    PRINT           reduce using rule 18 (statement -> PRINT LPAREN IDENTIFIER RPAREN .)
+    $end            reduce using rule 18 (statement -> PRINT LPAREN IDENTIFIER RPAREN .)
+
+
+state 24
+
+    (16) expression -> expression PLUS expression .
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MULTIPLY expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+    VECTOR_ID       reduce using rule 16 (expression -> expression PLUS expression .)
+    MATRIX_ID       reduce using rule 16 (expression -> expression PLUS expression .)
+    PRINT           reduce using rule 16 (expression -> expression PLUS expression .)
+    $end            reduce using rule 16 (expression -> expression PLUS expression .)
+    PLUS            shift and go to state 16
+    MULTIPLY        shift and go to state 17
+
+  ! PLUS            [ reduce using rule 16 (expression -> expression PLUS expression .) ]
+  ! MULTIPLY        [ reduce using rule 16 (expression -> expression PLUS expression .) ]
+
+
+state 25
+
+    (17) expression -> expression MULTIPLY expression .
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MULTIPLY expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+    VECTOR_ID       reduce using rule 17 (expression -> expression MULTIPLY expression .)
+    MATRIX_ID       reduce using rule 17 (expression -> expression MULTIPLY expression .)
+    PRINT           reduce using rule 17 (expression -> expression MULTIPLY expression .)
+    $end            reduce using rule 17 (expression -> expression MULTIPLY expression .)
+    PLUS            shift and go to state 16
+    MULTIPLY        shift and go to state 17
+
+  ! PLUS            [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
+  ! MULTIPLY        [ reduce using rule 17 (expression -> expression MULTIPLY expression .) ]
+
+
+state 26
+
+    (12) row -> LBRACKET row_values . RBRACKET
+
+    RBRACKET        shift and go to state 32
+
+
+state 27
+
+    (13) row_values -> NUMBER .
+    (14) row_values -> NUMBER . COMMA row_values
+
+    RBRACKET        reduce using rule 13 (row_values -> NUMBER .)
+    COMMA           shift and go to state 33
+
+
+state 28
+
+    (4) expression -> LBRACKET vector_values RBRACKET .
+
+    PLUS            reduce using rule 4 (expression -> LBRACKET vector_values RBRACKET .)
+    MULTIPLY        reduce using rule 4 (expression -> LBRACKET vector_values RBRACKET .)
+    VECTOR_ID       reduce using rule 4 (expression -> LBRACKET vector_values RBRACKET .)
+    MATRIX_ID       reduce using rule 4 (expression -> LBRACKET vector_values RBRACKET .)
+    PRINT           reduce using rule 4 (expression -> LBRACKET vector_values RBRACKET .)
+    $end            reduce using rule 4 (expression -> LBRACKET vector_values RBRACKET .)
+
+
+state 29
+
+    (9) expression -> LBRACKET matrix_rows RBRACKET .
+
+    PLUS            reduce using rule 9 (expression -> LBRACKET matrix_rows RBRACKET .)
+    MULTIPLY        reduce using rule 9 (expression -> LBRACKET matrix_rows RBRACKET .)
+    VECTOR_ID       reduce using rule 9 (expression -> LBRACKET matrix_rows RBRACKET .)
+    MATRIX_ID       reduce using rule 9 (expression -> LBRACKET matrix_rows RBRACKET .)
+    PRINT           reduce using rule 9 (expression -> LBRACKET matrix_rows RBRACKET .)
+    $end            reduce using rule 9 (expression -> LBRACKET matrix_rows RBRACKET .)
+
+
+state 30
+
+    (6) vector_values -> NUMBER COMMA . vector_values
+    (5) vector_values -> . NUMBER
+    (6) vector_values -> . NUMBER COMMA vector_values
+
+    NUMBER          shift and go to state 21
+
+    vector_values                  shift and go to state 34
+
+state 31
+
+    (11) matrix_rows -> row COMMA . matrix_rows
+    (10) matrix_rows -> . row
+    (11) matrix_rows -> . row COMMA matrix_rows
+    (12) row -> . LBRACKET row_values RBRACKET
+
+    LBRACKET        shift and go to state 18
+
+    row                            shift and go to state 22
+    matrix_rows                    shift and go to state 35
+
+state 32
+
+    (12) row -> LBRACKET row_values RBRACKET .
+
+    COMMA           reduce using rule 12 (row -> LBRACKET row_values RBRACKET .)
+    RBRACKET        reduce using rule 12 (row -> LBRACKET row_values RBRACKET .)
+
+
+state 33
+
+    (14) row_values -> NUMBER COMMA . row_values
+    (13) row_values -> . NUMBER
+    (14) row_values -> . NUMBER COMMA row_values
+
+    NUMBER          shift and go to state 27
+
+    row_values                     shift and go to state 36
+
+state 34
+
+    (6) vector_values -> NUMBER COMMA vector_values .
+
+    RBRACKET        reduce using rule 6 (vector_values -> NUMBER COMMA vector_values .)
+
+
+state 35
+
+    (11) matrix_rows -> row COMMA matrix_rows .
+
+    RBRACKET        reduce using rule 11 (matrix_rows -> row COMMA matrix_rows .)
+
+
+state 36
+
+    (14) row_values -> NUMBER COMMA row_values .
+
+    RBRACKET        reduce using rule 14 (row_values -> NUMBER COMMA row_values .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 24 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 24 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 25 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 25 resolved as shift
